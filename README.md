@@ -1,3 +1,3 @@
 # student_app
 
-A new Flutter project.
+A Flutter project using Getx and Firebase
