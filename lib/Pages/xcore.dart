@@ -5,3 +5,5 @@ export './Home/xcore.dart';
 export './Student/xcore.dart';
 export './Profile/xcore.dart';
 export './Register_Form/xcore.dart';
+export './Login/xcore.dart';
+export './Splash_Screen/xcore.dart';

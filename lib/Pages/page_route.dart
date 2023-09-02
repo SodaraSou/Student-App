@@ -2,16 +2,21 @@ import 'package:get/get.dart';
 import 'package:student_app/xcore.dart';
 
 class PageRouter {
-  static const String home = '/';
+  static const String splashScreen = '/splashScreen';
   static const String student = '/student';
   static const String registerForm = '/registerForm';
+  static const String login = '/login';
   static String studentDetail(String id) => '/studentDetail/$id';
 
   static final pages = [
     GetPage(
-      name: home,
-      page: () => const HomeView(),
-      binding: HomeBinding(),
+      name: login,
+      page: () => const LoginView(),
+      binding: LoginBinding(),
+    ),
+    GetPage(
+      name: splashScreen,
+      page: () => const SplashScreen(),
     ),
     GetPage(
       name: student,

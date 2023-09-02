@@ -59,9 +59,12 @@ class ProfileView extends GetView<ProfileController> {
           ),
         ),
       ),
-      bottomNavigationBar: TextButton(
-        onPressed: () => controller.onUpdate(),
-        child: const Text('Save Update'),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ElevatedButton(
+          onPressed: () => controller.signOut(),
+          child: const Text('Sign Out'),
+        ),
       ),
     );
   }

@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-// import 'package:student_app/xcore.dart';
+import 'package:student_app/xcore.dart';
 
 class ProfileController extends GetxController {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  Rx<User?> user = Rx<User?>(null);
   final readOnly = RxBool(false);
   final studentId = RxString('');
   final firstName = TextEditingController();
@@ -15,6 +18,7 @@ class ProfileController extends GetxController {
   void onInit() async {
     studentId.value = Get.parameters['id']!;
     getProfile();
+    user.bindStream(auth.authStateChanges());
     super.onInit();
   }
 
@@ -44,5 +48,14 @@ class ProfileController extends GetxController {
       'email': email.text,
     });
     Get.back();
+  }
+
+  Future<void> signOut() async {
+    try {
+      await auth.signOut();
+      Get.toNamed(PageRouter.login);
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+    }
   }
 }
