@@ -7,6 +7,7 @@ class PageRouter {
   static const String student = '/student';
   static const String registerForm = '/registerForm';
   static const String login = '/login';
+  static const String signUp = '/signUp';
   static String studentDetail(String id) => '/studentDetail/$id';
 
   static final pages = [
@@ -14,6 +15,11 @@ class PageRouter {
       name: login,
       page: () => const LoginView(),
       binding: LoginBinding(),
+    ),
+    GetPage(
+      name: signUp,
+      page: () => const SignUpView(),
+      binding: SignUpBinding(),
     ),
     GetPage(
       name: splashScreen,
