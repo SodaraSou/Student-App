@@ -106,6 +106,46 @@ class LoginView extends GetView<LoginController> {
                               ),
                             ),
                           ),
+                          const SizedBox(
+                            height: kDefaultPadding,
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: const Text(
+                              'Forgot Password?',
+                              style: TextStyle(
+                                color: kTextBlackColor,
+                                fontSize: 17,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: kDefaultPadding / 2,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'Don\'t have an account?',
+                                style: TextStyle(
+                                  color: kTextBlackColor,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () => controller.toSignUp(),
+                                child: const Text(
+                                  'Sign Up',
+                                  style: TextStyle(
+                                      color: kPrimaryColor,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w300),
+                                ),
+                              ),
+                            ],
+                          )
                         ],
                       ),
                     ),

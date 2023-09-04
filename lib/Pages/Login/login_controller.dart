@@ -16,6 +16,10 @@ class LoginController extends GetxController {
     user.bindStream(auth.authStateChanges());
   }
 
+  void toSignUp() {
+    Get.toNamed(PageRouter.signUp);
+  }
+
   Future<void> signInWithEmailAndPassword() async {
     try {
       await auth.signInWithEmailAndPassword(
