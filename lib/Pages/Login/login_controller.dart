@@ -24,7 +24,7 @@ class LoginController extends GetxController {
     try {
       await auth.signInWithEmailAndPassword(
           email: email.text, password: password.text);
-      Get.offNamed(PageRouter.student);
+      Get.offNamed(PageRouter.home);
     } catch (e) {
       Get.snackbar('Error', e.toString());
     }

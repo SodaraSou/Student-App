@@ -101,7 +101,9 @@ class LoginView extends GetView<LoginController> {
                                 child: Text(
                                   'Login',
                                   style: TextStyle(
-                                      fontSize: 17, color: kTextWhiteColor),
+                                    fontSize: 17,
+                                    color: kTextWhiteColor,
+                                  ),
                                 ),
                               ),
                             ),
