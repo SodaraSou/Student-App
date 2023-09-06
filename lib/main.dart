@@ -33,6 +33,10 @@ class MainApp extends StatelessWidget {
                   fontSize: 18,
                   fontWeight: FontWeight.w300,
                 ),
+                titleMedium: const TextStyle(
+                  color: kTextWhiteColor,
+                  fontSize: 22,
+                )
               ),
         ),
       ),
