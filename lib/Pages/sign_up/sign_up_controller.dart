@@ -13,7 +13,7 @@ class SignUpController extends GetxController {
   final email = TextEditingController();
   final password = TextEditingController();
   final confirmPassword = TextEditingController();
-  String userId = '';
+  final userId = RxString('');
 
   Future<void> registerUser() async {
     // Create user account
@@ -26,9 +26,9 @@ class SignUpController extends GetxController {
       Get.snackbar('Error', e.toString());
     }
     // Create user database
-    userId = auth.currentUser!.uid;
+    userId.value = auth.currentUser!.uid;
     try {
-      await ref.child('data').child(userId).set({
+      await ref.child('data').child(userId.value).set({
         'email': email.text.trim(),
         'password': password.text.trim(),
         'firstName': firstName.text.trim(),
