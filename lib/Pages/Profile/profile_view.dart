@@ -9,54 +9,99 @@ class ProfileView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
-      ),
-      body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Obx(
-              () => Column(
+        title: const Text('My Profile'),
+        actions: [
+          InkWell(
+            onTap: () {},
+            child: Container(
+              padding: const EdgeInsets.only(right: kDefaultPadding / 2),
+              child: const Row(
                 children: [
-                  TextField(
-                    readOnly: controller.readOnly.value,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'First Name',
-                    ),
-                    controller: controller.firstName,
+                  Icon(Icons.report_gmailerrorred_outlined),
+                  kHalfSizedBox,
+                  Text('Report'),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+      body: Container(
+        color: kOtherColor,
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              height: 150,
+              decoration: const BoxDecoration(
+                color: kPrimaryColor,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(kDefaultPadding * 2),
+                  bottomRight: Radius.circular(kDefaultPadding * 2),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const CircleAvatar(
+                    maxRadius: 50,
+                    minRadius: 50,
+                    backgroundImage:
+                        AssetImage('assets/images/student_profile.jpeg'),
                   ),
-                  const SizedBox(height: 10.0),
-                  TextField(
-                    readOnly: controller.readOnly.value,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Last Name',
-                    ),
-                    controller: controller.lastName,
+                  const SizedBox(
+                    width: kDefaultPadding,
                   ),
-                  const SizedBox(height: 10.0),
-                  TextField(
-                    readOnly: controller.readOnly.value,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Department',
-                    ),
-                    controller: controller.department,
-                  ),
-                  const SizedBox(height: 10.0),
-                  TextField(
-                    readOnly: controller.readOnly.value,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Email',
-                    ),
-                    controller: controller.firstName,
+                  Obx(
+                    () {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                ('${controller.firstName.value} '),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                controller.lastName.value,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            '${controller.department.value} | Class: N/A',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ],
               ),
             ),
-          ),
+            const SizedBox(
+              height: kDefaultPadding,
+            ),
+            Container(
+                width: MediaQuery.of(context).size.width / 2,
+                color: kPrimaryColor,
+                child: Row(
+                  children: [Text('Hello')],
+                )),
+          ],
         ),
       ),
       bottomNavigationBar: Padding(

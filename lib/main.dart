@@ -21,6 +21,10 @@ class MainApp extends StatelessWidget {
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: kPrimaryColor,
         primaryColor: kPrimaryColor,
+        appBarTheme: const AppBarTheme(
+          color: kPrimaryColor,
+          elevation: 0,
+        ),
         textTheme: GoogleFonts.sourceSansProTextTheme(
           Theme.of(context).textTheme.apply().copyWith(
                 bodyLarge: const TextStyle(
