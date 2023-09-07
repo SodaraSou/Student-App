@@ -95,12 +95,57 @@ class ProfileView extends GetView<ProfileController> {
             const SizedBox(
               height: kDefaultPadding,
             ),
+            const Row(
+              children: [
+                ProfileDetailBox(value: 'N/A', title: 'Registration Number'),
+                ProfileDetailBox(value: 'N/A', title: 'Academic Year'),
+              ],
+            ),
+            const Row(
+              children: [
+                ProfileDetailBox(value: 'N/A', title: 'Date of Birth'),
+                ProfileDetailBox(value: 'N/A', title: 'Gender'),
+              ],
+            ),
             Container(
-                width: MediaQuery.of(context).size.width / 2,
-                color: kPrimaryColor,
-                child: Row(
-                  children: [Text('Hello')],
-                )),
+              padding: const EdgeInsets.all(kDefaultPadding),
+              child: Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Email',
+                        style: TextStyle(
+                          color: kTextLightColor,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      kHalfSizedBox,
+                      const Text(
+                        'N/A',
+                        style: TextStyle(
+                          color: kTextBlackColor,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      kHalfSizedBox,
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 1.2,
+                        child: const Divider(
+                          thickness: 1,
+                        ),
+                      )
+                    ],
+                  ),
+                  const Icon(
+                    Icons.lock_outlined,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -110,6 +155,61 @@ class ProfileView extends GetView<ProfileController> {
           onPressed: () => controller.signOut(),
           child: const Text('Sign Out'),
         ),
+      ),
+    );
+  }
+}
+
+class ProfileDetailBox extends StatelessWidget {
+  const ProfileDetailBox({
+    Key? key,
+    required this.value,
+    required this.title,
+  }) : super(key: key);
+
+  final String title;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(kDefaultPadding),
+      width: MediaQuery.of(context).size.width / 2,
+      child: Row(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  color: kTextLightColor,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              kHalfSizedBox,
+              Text(
+                value,
+                style: const TextStyle(
+                  color: kTextBlackColor,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              kHalfSizedBox,
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 3,
+                child: const Divider(
+                  thickness: 1,
+                ),
+              )
+            ],
+          ),
+          const Icon(
+            Icons.lock_outlined,
+          ),
+        ],
       ),
     );
   }
