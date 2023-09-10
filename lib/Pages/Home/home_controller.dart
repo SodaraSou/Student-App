@@ -1,17 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 import 'package:student_app/xcore.dart';
 
 class HomeController extends GetxController {
-  final FirebaseAuth auth = FirebaseAuth.instance;
   final firstName = RxString('');
   final department = RxString('');
   final userId = RxString('');
 
   @override
   void onInit() {
-    userId.value = auth.currentUser!.uid;
+    userId.value = Get.parameters['id']!;
     getUserDetail();
     super.onInit();
   }
@@ -25,14 +23,5 @@ class HomeController extends GetxController {
     DataSnapshot data = await ref.get();
     firstName.value = data.child('firstName').value.toString();
     department.value = data.child('department').value.toString();
-  }
-
-  Future<void> signOut() async {
-    try {
-      await auth.signOut();
-      Get.toNamed(PageRouter.login);
-    } catch (e) {
-      Get.snackbar('Error', e.toString());
-    }
   }
 }

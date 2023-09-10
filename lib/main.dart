@@ -40,7 +40,7 @@ class MainApp extends StatelessWidget {
                 titleMedium: const TextStyle(
                   color: kTextWhiteColor,
                   fontSize: 22,
-                )
+                ),
               ),
         ),
       ),

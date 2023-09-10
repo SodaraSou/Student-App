@@ -51,15 +51,11 @@ class HomeView extends GetView<HomeController> {
                         ),
                         Obx(
                           () => Text(
-                            'Department: ${controller.department.value}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(
-                                  fontWeight: FontWeight.w200,
-                                  fontSize: 16,
-                                  color: kTextWhiteColor,
-                                ),
+                            '${controller.department.value} | Class: N/A',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],

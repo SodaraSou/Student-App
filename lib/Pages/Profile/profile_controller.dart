@@ -1,33 +1,61 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/widgets.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:student_app/xcore.dart';
 
 class ProfileController extends GetxController {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  final readOnly = RxBool(false);
-  final studentId = RxString('');
+  final auth = FirebaseAuth.instance;
+  final storageRef = FirebaseStorage.instance;
+  final dataRef = FirebaseDatabase.instance;
+  final imagePicker = ImagePicker();
   final firstName = RxString('');
   final lastName = RxString('');
   final department = RxString('');
-  final email = TextEditingController();
+  final email = RxString('');
+  final phoneNumber = RxString('');
+  final dob = RxString('');
+  final studentId = RxString('');
+  final photoUrl = RxString('');
 
   @override
-  void onInit() async {
-    // studentId.value = Get.parameters['id']!;
-    studentId.value = auth.currentUser!.uid;
+  void onInit() {
+    studentId.value = Get.parameters['id']!;
     getProfile();
     super.onInit();
   }
 
   Future<void> getProfile() async {
-    final ref = FirebaseDatabase.instance.ref('data/$studentId');
-    DataSnapshot data = await ref.get();
+    DataSnapshot data = await dataRef.ref().child('data/$studentId').get();
     firstName.value = data.child('firstName').value.toString();
     lastName.value = data.child('lastName').value.toString();
     department.value = data.child('department').value.toString();
-    email.text = data.child('email').value.toString();
+    email.value = data.child('email').value.toString();
+    phoneNumber.value = data.child('phoneNumber').value.toString();
+    dob.value = data.child('dob').value.toString();
+    photoUrl.value = data.child('photoUrl').value.toString();
+  }
+
+  Future<void> uploadImage() async {
+    XFile? file = await imagePicker.pickImage(source: ImageSource.gallery);
+    if (file == null) return;
+    try {
+      await storageRef
+          .ref()
+          .child('images/$studentId')
+          .putFile(File(file.path));
+      photoUrl.value =
+          await storageRef.ref().child('images/$studentId').getDownloadURL();
+      await dataRef
+          .ref()
+          .child('data/$studentId')
+          .update({'photoUrl': photoUrl.value});
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+    }
   }
 
   // void onUpdate() async {
@@ -44,7 +72,7 @@ class ProfileController extends GetxController {
   Future<void> signOut() async {
     try {
       await auth.signOut();
-      Get.toNamed(PageRouter.login);
+      Get.offAllNamed(PageRouter.login);
     } catch (e) {
       Get.snackbar('Error', e.toString());
     }

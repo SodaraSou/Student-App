@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void _navigateToLogin(user) async {
     await Future.delayed(const Duration(seconds: 2));
     if (user != null) {
-      Get.offNamed(PageRouter.home);
+      Get.offNamed(PageRouter.home(user.uid));
     } else {
       Get.offNamed(PageRouter.login);
     }

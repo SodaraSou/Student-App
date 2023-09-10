@@ -43,11 +43,19 @@ class ProfileView extends GetView<ProfileController> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const CircleAvatar(
-                    maxRadius: 50,
-                    minRadius: 50,
-                    backgroundImage:
-                        AssetImage('assets/images/student_profile.jpeg'),
+                  GestureDetector(
+                    onTap: () {
+                      controller.uploadImage();
+                    },
+                    child: Obx(
+                      () => CircleAvatar(
+                        maxRadius: 50,
+                        minRadius: 50,
+                        backgroundImage: Image.network(
+                          controller.photoUrl.value,
+                        ).image,
+                      ),
+                    ),
                   ),
                   const SizedBox(
                     width: kDefaultPadding,
@@ -101,10 +109,11 @@ class ProfileView extends GetView<ProfileController> {
                 ProfileDetailBox(value: 'N/A', title: 'Academic Year'),
               ],
             ),
-            const Row(
+            Row(
               children: [
-                ProfileDetailBox(value: 'N/A', title: 'Date of Birth'),
-                ProfileDetailBox(value: 'N/A', title: 'Gender'),
+                Obx(() => ProfileDetailBox(
+                    value: controller.dob.value, title: 'Date of Birth')),
+                const ProfileDetailBox(value: 'N/A', title: 'Gender'),
               ],
             ),
             Container(
@@ -123,12 +132,58 @@ class ProfileView extends GetView<ProfileController> {
                         ),
                       ),
                       kHalfSizedBox,
+                      Obx(
+                        () => Text(
+                          controller.email.value,
+                          style: const TextStyle(
+                            color: kTextBlackColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      kHalfSizedBox,
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 1.2,
+                        child: const Divider(
+                          thickness: 1,
+                        ),
+                      )
+                    ],
+                  ),
+                  const Icon(
+                    Icons.lock_outlined,
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(
+                left: kDefaultPadding,
+                right: kDefaultPadding,
+              ),
+              child: Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       const Text(
-                        'N/A',
+                        'Phone Number',
                         style: TextStyle(
-                          color: kTextBlackColor,
+                          color: kTextLightColor,
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      kHalfSizedBox,
+                      Obx(
+                        () => Text(
+                          controller.phoneNumber.value,
+                          style: const TextStyle(
+                            color: kTextBlackColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       kHalfSizedBox,
@@ -173,7 +228,10 @@ class ProfileDetailBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(kDefaultPadding),
+      padding: const EdgeInsets.only(
+        right: kDefaultPadding,
+        left: kDefaultPadding,
+      ),
       width: MediaQuery.of(context).size.width / 2,
       child: Row(
         children: [

@@ -15,8 +15,10 @@ class LoginController extends GetxController {
   Future<void> signInWithEmailAndPassword() async {
     try {
       await auth.signInWithEmailAndPassword(
-          email: email.text, password: password.text);
-      Get.offNamed(PageRouter.home);
+        email: email.text,
+        password: password.text,
+      );
+      Get.offNamed(PageRouter.home(auth.currentUser!.uid));
     } catch (e) {
       Get.snackbar('Error', e.toString());
     }

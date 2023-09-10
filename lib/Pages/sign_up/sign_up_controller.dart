@@ -15,6 +15,14 @@ class SignUpController extends GetxController {
   final confirmPassword = TextEditingController();
   final userId = RxString('');
 
+  void checkPassword() {
+    if (password.text.trim() != confirmPassword.text.trim()) {
+      Get.snackbar('Error', 'Password does not match');
+    } else {
+      registerUser();
+    }
+  }
+
   Future<void> registerUser() async {
     // Create user account
     try {
@@ -38,6 +46,6 @@ class SignUpController extends GetxController {
     } catch (e) {
       Get.snackbar('Error', e.toString());
     }
-    Get.offNamed(PageRouter.home);
+    Get.offNamed(PageRouter.home(auth.currentUser!.uid));
   }
 }
