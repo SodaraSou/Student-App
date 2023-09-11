@@ -29,14 +29,18 @@ class ProfileController extends GetxController {
   }
 
   Future<void> getProfile() async {
-    DataSnapshot data = await dataRef.ref().child('data/$studentId').get();
-    firstName.value = data.child('firstName').value.toString();
-    lastName.value = data.child('lastName').value.toString();
-    department.value = data.child('department').value.toString();
-    email.value = data.child('email').value.toString();
-    phoneNumber.value = data.child('phoneNumber').value.toString();
-    dob.value = data.child('dob').value.toString();
-    photoUrl.value = data.child('photoUrl').value.toString();
+    try {
+      DataSnapshot data = await dataRef.ref().child('data/$studentId').get();
+      firstName.value = data.child('firstName').value.toString();
+      lastName.value = data.child('lastName').value.toString();
+      department.value = data.child('department').value.toString();
+      email.value = data.child('email').value.toString();
+      phoneNumber.value = data.child('phoneNumber').value.toString();
+      dob.value = data.child('dob').value.toString();
+      photoUrl.value = data.child('photoUrl').value.toString();
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+    }
   }
 
   Future<void> uploadImage() async {
