@@ -65,12 +65,14 @@ class HomeView extends GetView<HomeController> {
                     ),
                     GestureDetector(
                       onTap: () => controller.toProfilePage(),
-                      child: const CircleAvatar(
-                        minRadius: 50,
-                        maxRadius: 50,
-                        backgroundColor: kSecondaryColor,
-                        backgroundImage:
-                            AssetImage('assets/images/student_profile.jpeg'),
+                      child: Obx(
+                        () => CircleAvatar(
+                          minRadius: 50,
+                          maxRadius: 50,
+                          backgroundColor: kSecondaryColor,
+                          backgroundImage:
+                              Image.network(controller.photoUrl.value).image,
+                        ),
                       ),
                     ),
                   ],

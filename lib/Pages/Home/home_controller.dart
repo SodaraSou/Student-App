@@ -3,9 +3,11 @@ import 'package:get/get.dart';
 import 'package:student_app/xcore.dart';
 
 class HomeController extends GetxController {
+  final dataRef = FirebaseDatabase.instance;
   final firstName = RxString('');
   final department = RxString('');
   final userId = RxString('');
+  final photoUrl = RxString('');
 
   @override
   void onInit() {
@@ -19,9 +21,9 @@ class HomeController extends GetxController {
   }
 
   Future<void> getUserDetail() async {
-    final ref = FirebaseDatabase.instance.ref('data/$userId');
-    DataSnapshot data = await ref.get();
+    DataSnapshot data = await dataRef.ref().child('data/$userId').get();
     firstName.value = data.child('firstName').value.toString();
     department.value = data.child('department').value.toString();
+    photoUrl.value = data.child('photoUrl').value.toString();
   }
 }
