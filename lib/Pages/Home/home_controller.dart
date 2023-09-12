@@ -6,6 +6,7 @@ class HomeController extends GetxController {
   final dataRef = FirebaseDatabase.instance;
   final firstName = RxString('');
   final department = RxString('');
+  // final _class = RxString('');
   final userId = RxString('');
   final photoUrl = RxString('');
 
@@ -21,9 +22,13 @@ class HomeController extends GetxController {
   }
 
   Future<void> getUserDetail() async {
-    DataSnapshot data = await dataRef.ref().child('data/$userId').get();
-    firstName.value = data.child('firstName').value.toString();
-    department.value = data.child('department').value.toString();
-    photoUrl.value = data.child('photoUrl').value.toString();
+    try {
+      DataSnapshot data = await dataRef.ref().child('data/$userId').get();
+      firstName.value = data.child('firstName').value.toString();
+      department.value = data.child('department').value.toString();
+      photoUrl.value = data.child('photoUrl').value.toString();
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+    }
   }
 }
