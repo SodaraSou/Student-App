@@ -10,7 +10,7 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       body: Column(
         children: [
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 2.5,
             child: Column(
