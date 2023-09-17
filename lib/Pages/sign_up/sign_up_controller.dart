@@ -37,11 +37,13 @@ class SignUpController extends GetxController {
     userId.value = auth.currentUser!.uid;
     try {
       await ref.child('data').child(userId.value).set({
+        'id': userId.value.trim(),
         'email': email.text.trim(),
         'password': password.text.trim(),
         'firstName': firstName.text.trim(),
         'lastName': lastName.text.trim(),
         'department': department.text.trim(),
+        'Class': "",
       });
     } catch (e) {
       Get.snackbar('Error', e.toString());
